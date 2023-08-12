@@ -9,7 +9,7 @@ class VideoService {
     const bb = busboy({ headers: req.headers })
     bb.on('file', (name, file, info) => {
       const { filename, encoding, mimeType } = info
-      const saveTo = path.join(`busboy-upload-1`)
+      const saveTo = path.join(`busboy-upload-1`, filename)
       file.pipe(fs.createWriteStream(saveTo))
       file.on('data', (data) => { }).on('close', () => { })
     })

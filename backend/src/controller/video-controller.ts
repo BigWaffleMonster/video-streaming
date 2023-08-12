@@ -1,8 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
+import videoSrvice from '../service/video-srvice'
 
 class VideoController {
   async upload(req: Request, res: Response, next: NextFunction) {
     try {
+      let resp = await videoSrvice.upload(req)
+
+      res.status(200).json({ data: resp })
     } catch (e) {
       res.status(400).json({ error: '' })
     }
