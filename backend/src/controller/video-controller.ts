@@ -14,8 +14,9 @@ class VideoController {
 
   async play(req: Request, res: Response, next: NextFunction) {
     try {
+      let resp = await videoSrvice.play(req, res)
     } catch (e) {
-      res.status(400).json({ error: '' })
+      res.status(400).json({ error: e })
     }
   }
 

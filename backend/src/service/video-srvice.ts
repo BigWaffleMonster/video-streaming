@@ -9,22 +9,21 @@ class VideoService {
     const bb = busboy({ headers: req.headers })
     bb.on('file', (name, file, info) => {
       const { filename, encoding, mimeType } = info
-      const saveTo = path.join(`busboy-upload-1`, filename)
+      const saveTo = path.join(`assets`, filename)
       file.pipe(fs.createWriteStream(saveTo))
-      file.on('data', (data) => {}).on('close', () => {})
+      file.on('data', (data) => { }).on('close', () => { })
     })
-    bb.on('field', (name, val, info) => {})
-    bb.on('close', () => {})
+    bb.on('field', (name, val, info) => { })
+    bb.on('close', () => { })
 
     req.pipe(bb)
     try {
-    } catch (e) {}
+    } catch (e) { }
   }
 
   async play(req: Request, res: Response) {
     try {
-      console.log(req.params)
-      const path = `assets/${req.params.id}.mp4`
+      const path = `assets/${req.query.title}`
       const stat = fs.statSync(path)
       const fileSize = stat.size
       const range = req.headers.range
@@ -52,12 +51,14 @@ class VideoService {
         res.writeHead(200, head)
         fs.createReadStream(path).pipe(res)
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   async getPlayerSettings() {
     try {
-    } catch (e) {}
+    } catch (e) { }
   }
 }
 

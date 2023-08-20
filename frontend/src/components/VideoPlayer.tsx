@@ -1,14 +1,21 @@
-import React from "react";
+import React, { FC } from "react";
+import { useLocation } from "react-router-dom";
 
-export default function VideoPlayer(id: string, title: string) {
+const VideoPlayer: FC = () => {
+  const search = useLocation().search;
+  const title = new URLSearchParams(search).get("title");
+  const id = new URLSearchParams(search).get("id");
+
   return (
     <div>
       <video id="videoPlayer" controls autoPlay>
         <source
-          src={`http://localhost:8080/play?title=${title}&id=${id}`}
+          src={`http://localhost:5000/play?title=${title}&id=${id}`}
           type="video/mp4"
         />
       </video>
     </div>
   );
-}
+};
+
+export default VideoPlayer;
